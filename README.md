@@ -8,6 +8,8 @@ To use this repository:
 
 ## 1. Dependencies
 
+Skip this section if you have run a FFF campaign with this template before
+
 ### SSH access to STFC/IRIS
 ### BulkDock
 ### HIPPO
