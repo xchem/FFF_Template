@@ -11,12 +11,29 @@ To use this repository:
 Skip this section if you have run a FFF campaign with this template before
 
 ### SSH access to STFC/IRIS
+### Work directory
+### Set up xchem/slurm
+### Conda setup
+### Custom bashrc
+### Jupyter notebook server
 ### BulkDock
 ### HIPPO
 ### Fragmenstein
-### Fragment Knitwork
+### Fragment Knitwork (optional)
 ### Syndirella
 ### EnamineCatalogs
+
+### Checklist
+
+- [ ] you can ssh to IRIS (cepheus-slurm.diamond.ac.uk)
+- [ ] you can source a file to set up conda
+- [ ] you can connect to a Jupyter notebook on IRIS
+- [ ] you can run `python -m bulkdock status` from the BulkDock directory
+- [ ] you can `import hippo` from a notebook
+- [ ] you can run `fragmenstein --help`
+- [ ] you can ssh to the sw-graph VM (optional, only for Knitwork)
+- [ ] you can run `syndirella --help`
+- [ ] you have set up EnamineCatalogs
 
 ## 2. Setup
 
