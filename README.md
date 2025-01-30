@@ -88,10 +88,10 @@ sb.sh --job-name "bulkdock_out" $HOME2/slurm/run_python.sh -m bulkdock to-fragal
 
 ### Fragment Knitwork
 
-Running Fragment Knitting currently requires access to a specific VM known as `graph-sw2`. If you don't have access, skip this section
+Running Fragment Knitting currently requires access to a specific VM known as `graph-sw-2`. If you don't have access, skip this section
 
 - [ ] `git add`, `commit` and `push` the contents of `aligned_files` and `knitwork` to the repository
-- [ ] `git clone` the repository on `graph-sw2`
+- [ ] `git clone` the repository on `graph-sw-2`
 - [ ] navigate to the `knitwork` subdirectory
 
 Then, for each merging hypothesis:
