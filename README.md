@@ -13,29 +13,27 @@ Skip this section if you have run a FFF campaign with this template before
 ### Pre-requisites
 
 - [ ] SSH access to STFC/IRIS
-- [ ] Working directory in `cepheus-slurm:/opt/xchem-fragalysis-2/``
-- [ ] Set up [xchem/slurm](https://github.com/xchem/slurm)
+- [ ] Working directory in `cepheus-slurm:/opt/xchem-fragalysis-2/`
 - [ ] Conda setup w/ `python >= 3.10`
-- [ ] Custom bashrc
-- [ ] Start a Jupyter notebook server
-- [ ] [BulkDock](https://github.com/mwinokan/BulkDock)
-- [ ] [HIPPO](https://github.com/mwinokan/HIPPO)
-- [ ] [Fragmenstein](https://github.com/matteoferla/Fragmenstein)
-- [ ] [FragmentKnitwork](https://github.com/xchem/FragmentKnitwork)
-- [ ] [syndirella](https://github.com/kate-fie/syndirella)
-- [ ] [EnamineCatalogs](https://github.com/mwinokan/EnamineCatalogs)
+- [ ] Start a Jupyter notebook server in a SLURM job
+- [ ] Set up [BulkDock](https://github.com/mwinokan/BulkDock)
+- [ ] Install [HIPPO](https://github.com/mwinokan/HIPPO)
+- [ ] Install [Fragmenstein](https://github.com/matteoferla/Fragmenstein)
+- [ ] Install [FragmentKnitwork](https://github.com/xchem/FragmentKnitwork) (optional, on a VM with a fragment network graph database)
+- [ ] Install [syndirella](https://github.com/kate-fie/syndirella)
+- [ ] Install [RichQueue](https://github.com/mwinokan/RichQueue)
+- [ ] Install [PoseButcher](https://github.com/mwinokan/PoseButcher) (optional, useful if you have many subsites)
 
 ### Checklist
 
 - [ ] you can ssh to IRIS (cepheus-slurm.diamond.ac.uk)
-- [ ] you can source a file to set up conda
+- [ ] you can source a file to set up conda (e.g. create a bashrc_slurm.sh)
 - [ ] you can connect to a Jupyter notebook on IRIS
 - [ ] you can run `python -m bulkdock status` from the BulkDock directory
 - [ ] you can `import hippo` from a notebook
 - [ ] you can run `fragmenstein --help`
 - [ ] you can ssh to the sw-graph VM (optional, only for Knitwork)
 - [ ] you can run `syndirella --help`
-- [ ] you have set up EnamineCatalogs
 
 ## 2. Setup
 
