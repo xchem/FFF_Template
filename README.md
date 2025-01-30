@@ -17,7 +17,7 @@ Skip this section if you have run a FFF campaign with this template before
 - [ ] Conda setup w/ `python >= 3.10`
 - [ ] Start a Jupyter notebook server in a SLURM job
 - [ ] Set up [BulkDock](https://github.com/mwinokan/BulkDock)
-- [ ] Install [HIPPO](https://github.com/mwinokan/HIPPO)
+- [ ] Install `dev` branch of [HIPPO](https://github.com/mwinokan/HIPPO)
 - [ ] Install [Fragmenstein](https://github.com/matteoferla/Fragmenstein)
 - [ ] Install [FragmentKnitwork](https://github.com/xchem/FragmentKnitwork) (optional, on a VM with a fragment network graph database)
 - [ ] Install [syndirella](https://github.com/kate-fie/syndirella)
@@ -42,9 +42,12 @@ Skip this section if you have run a FFF campaign with this template before
 - [ ] Setup target in BulkDock 
 
 ```
+cd $BULK
 python -m bulkdock extract TARGET_NAME
 python -m bulkdock setup TARGET_NAME
 ```
+
+- [ ] Copy the `aligned_files` directory from `$BULK/TARGETS/TARGET_NAME/aligned_files` into this repository
 
 ## 3. Compound Design
 
