@@ -163,3 +163,14 @@ cython_debug/
 
 .DS_Store
 *.sublime-*
+
+**/fragment_output/synthon*.mol
+**/fragment_output/subnode*.mol
+
+**/fragment_output/synthon*.mol
+**/fragment_output/subnode*.mol
+
+**/knitwork_pure_output/*_pure_merge.json
+**/knitwork_impure_output/*_impure_merge.json
+**/knitwork_impure_output/prolif_prioritized
+**/knitwork_temp
