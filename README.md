@@ -72,7 +72,6 @@ This will create outputs in the chosen HYPOTHESIS_NICKNAME subdirectory:
 cp -v HYPOTHESIS_NICKNAME/HYPOTHESIS_NICKNAME_fstein_bulkdock_input.csv $BULK/INPUTS/TARGET_HYPOTHESIS_NICKNAME_fstein.csv
 cd $BULK
 python -m bulkdock place TARGET_NAME INPUTS/TARGET_HYPOTHESIS_NICKNAME_fstein.csv
-
 ```
 
 - [ ] monitor placements (until complete)
