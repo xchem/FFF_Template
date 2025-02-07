@@ -42,6 +42,7 @@ Skip this section if you have run a FFF campaign with this template before
 - [ ] Setup target in BulkDock 
 
 ```
+cp -v TARGET_NAME.zip $BULK/TARGETS
 cd $BULK
 python -m bulkdock extract TARGET_NAME
 python -m bulkdock setup TARGET_NAME
@@ -49,13 +50,18 @@ python -m bulkdock setup TARGET_NAME
 
 - [ ] Copy the `aligned_files` directory from `$BULK/TARGETS/TARGET_NAME/aligned_files` into this repository
 
+```
+cd - 
+cp -rv $BULK/TARGETS/TARGET_NAME/aligned_files .
+```
+
 ## 3. Compound Design
 
 - [ ] run the notebook `hippo/1_merge_prep.ipynb`
 
 ### Fragmenstein
 
-For each merging hypothesis
+For each merging hypothesis (i.e. HYPOTHESIS_NICKNAME)
 
 - [ ] go to the fragmenstein subdirectory `cd fragmenstein`
 - [ ] queue fragmenstein job 
@@ -72,7 +78,7 @@ This will create outputs in the chosen HYPOTHESIS_NICKNAME subdirectory:
 - [ ] placement with bulkdock
 
 ```
-cp -v HYPOTHESIS_NICKNAME/HYPOTHESIS_NICKNAME_fstein_bulkdock_input.csv $BULK/INPUTS/TARGET_HYPOTHESIS_NICKNAME_fstein.csv
+cp -v HYPOTHESIS_NICKNAME_fstein_bulkdock_input.csv $BULK/INPUTS/TARGET_HYPOTHESIS_NICKNAME_fstein.csv
 cd $BULK
 python -m bulkdock place TARGET_NAME INPUTS/TARGET_HYPOTHESIS_NICKNAME_fstein.csv
 ```
@@ -108,8 +114,8 @@ Then, for each merging hypothesis:
 - [ ] Run BulkDock placement as for Fragmenstein above
 
 ```
-cp -v HYPOTHESIS_NICKNAME/HYPOTHESIS_NICKNAME_knitwork_pure.csv $BULK/INPUTS/TARGET_HYPOTHESIS_NICKNAME_knitwork_pure.csv
-cp -v HYPOTHESIS_NICKNAME/HYPOTHESIS_NICKNAME_knitwork_impure.csv $BULK/INPUTS/TARGET_HYPOTHESIS_NICKNAME_knitwork_impure.csv
+cp -v HYPOTHESIS_NICKNAME_knitwork_pure.csv $BULK/INPUTS/TARGET_HYPOTHESIS_NICKNAME_knitwork_pure.csv
+cp -v HYPOTHESIS_NICKNAME_knitwork_impure.csv $BULK/INPUTS/TARGET_HYPOTHESIS_NICKNAME_knitwork_impure.csv
 cd $BULK
 python -m bulkdock place TARGET_NAME INPUTS/TARGET_HYPOTHESIS_NICKNAME_knitwork_pure.csv
 python -m bulkdock place TARGET_NAME INPUTS/TARGET_HYPOTHESIS_NICKNAME_knitwork_impure.csv
