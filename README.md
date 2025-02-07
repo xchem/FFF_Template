@@ -66,7 +66,7 @@ For each merging hypothesis (i.e. HYPOTHESIS_NICKNAME)
 - [ ] go to the fragmenstein subdirectory `cd fragmenstein`
 - [ ] queue fragmenstein job 
 
-```sb.sh --job-name "fragmenstein" $HOME2/slurm/run_bash_with_conda.sh run_fragmenstein.sh HYPOTHESIS_NICKNAME```
+```sb.sh --job-name "TARGET_NAME_HYPOTHESIS_NICKNAME_fragmenstein" $HOME2/slurm/run_bash_with_conda.sh run_fragmenstein.sh HYPOTHESIS_NICKNAME```
 
 This will create outputs in the chosen HYPOTHESIS_NICKNAME subdirectory:
 
