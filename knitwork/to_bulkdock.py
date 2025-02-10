@@ -33,6 +33,16 @@ def create_bulkdock_inputs(subdir: str):
 
             hit_names = merge_name.split("-")
 
+            if len(hit_names) == 2:
+                pass
+
+            elif len(hit_names) == 4:
+                hit_names = [f"{hit_names[0]}-{hit_names[1]}", f"{hit_names[2]}-{hit_names[3]}"]
+                            
+            else:
+                raise NotImplementedError(f"Wrong number of dashes in merge name: {merge_name}")
+
+
             data = json.load(open(json_file, "rt"))
 
             for series in data.values():
