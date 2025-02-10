@@ -78,9 +78,9 @@ This will create outputs in the chosen HYPOTHESIS_NICKNAME subdirectory:
 - [ ] placement with bulkdock
 
 ```
-cp -v HYPOTHESIS_NICKNAME_fstein_bulkdock_input.csv $BULK/INPUTS/TARGET_HYPOTHESIS_NICKNAME_fstein.csv
+cp -v HYPOTHESIS_NICKNAME_fstein_bulkdock_input.csv $BULK/INPUTS/TARGET_NAME_HYPOTHESIS_NICKNAME_fstein.csv
 cd $BULK
-python -m bulkdock place TARGET_NAME INPUTS/TARGET_HYPOTHESIS_NICKNAME_fstein.csv
+python -m bulkdock place TARGET_NAME INPUTS/TARGET_NAME_HYPOTHESIS_NICKNAME_fstein.csv
 ```
 
 - [ ] monitor placements (until complete)
@@ -127,11 +127,11 @@ Then, for each merging hypothesis:
 - [ ] Run BulkDock placement as for Fragmenstein above
 
 ```
-cp -v HYPOTHESIS_NICKNAME_knitwork_pure.csv $BULK/INPUTS/TARGET_HYPOTHESIS_NICKNAME_knitwork_pure.csv
-cp -v HYPOTHESIS_NICKNAME_knitwork_impure.csv $BULK/INPUTS/TARGET_HYPOTHESIS_NICKNAME_knitwork_impure.csv
+cp -v HYPOTHESIS_NICKNAME_knitwork_pure.csv $BULK/INPUTS/TARGET_NAME_HYPOTHESIS_NICKNAME_knitwork_pure.csv
+cp -v HYPOTHESIS_NICKNAME_knitwork_impure.csv $BULK/INPUTS/TARGET_NAME_HYPOTHESIS_NICKNAME_knitwork_impure.csv
 cd $BULK
-python -m bulkdock place TARGET_NAME INPUTS/TARGET_HYPOTHESIS_NICKNAME_knitwork_pure.csv
-python -m bulkdock place TARGET_NAME INPUTS/TARGET_HYPOTHESIS_NICKNAME_knitwork_impure.csv
+python -m bulkdock place TARGET_NAME INPUTS/TARGET_NAME_HYPOTHESIS_NICKNAME_knitwork_pure.csv
+python -m bulkdock place TARGET_NAME INPUTS/TARGET_NAME_HYPOTHESIS_NICKNAME_knitwork_impure.csv
 ```
 
 - [ ] Export Fragalysis SDF as for Fragmenstein
