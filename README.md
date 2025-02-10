@@ -89,10 +89,23 @@ python -m bulkdock place TARGET_NAME INPUTS/TARGET_HYPOTHESIS_NICKNAME_fstein.cs
 python -m bulkdock status
 ```
 
+To loop indefinitely:
+
+```
+watch python -m bulkdock status
+```
+
 - [ ] export Fragalysis SDF
 
 ```
-sb.sh --job-name "bulkdock_out" $HOME2/slurm/run_python.sh -m bulkdock to-fragalysis TARGET OUTPUTS/SDF_FILE METHOD_NAME
+sb.sh --job-name "TARGET_NAME_HYPOTHESIS_NICKNAME_fstein_out" $HOME2/slurm/run_python.sh -m bulkdock to-fragalysis TARGET_NAME OUTPUTS/SDF_FILE HYPOTHESIS_NICKNAME_fstein
+```
+
+- [ ] Copy back to this repository
+
+```
+cd - OUTPUTS/SDF_FILE
+cp -v $BULK/OUTPUTS/TARGET_NAME_HYPOTHESIS_NICKNAME*fstein*fragalysis.sdf .
 ```
 
 ### Fragment Knitwork
