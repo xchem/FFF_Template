@@ -12,36 +12,74 @@ Skip this section if you have run a FFF campaign with this template before
 
 ### Pre-requisites
 
-- [ ] SSH access to STFC/IRIS
-- [ ] Working directory in `cepheus-slurm:/opt/xchem-fragalysis-2/`
-- [ ] Conda setup w/ `python >= 3.10`
-- [ ] Start a Jupyter notebook server in a SLURM job
-- [ ] Set up [BulkDock](https://github.com/mwinokan/BulkDock)
-- [ ] Install `dev` branch of [HIPPO](https://github.com/mwinokan/HIPPO)
-- [ ] Install [Fragmenstein](https://github.com/matteoferla/Fragmenstein)
-- [ ] Install [FragmentKnitwork](https://github.com/xchem/FragmentKnitwork) (optional, on a VM with a fragment network graph database)
-- [ ] Install [syndirella](https://github.com/kate-fie/syndirella)
-- [ ] Install [RichQueue](https://github.com/mwinokan/RichQueue)
-- [ ] Install [PoseButcher](https://github.com/mwinokan/PoseButcher) (optional, useful if you have many subsites)
+- [ ] Get SSH access to `cepheus-slurm.diamond.ac.uk`. You may need to tunnel via `ssh.diamond.ac.uk`
+
+- [ ] Create a working directory (and symbolic link for convenience): 
+
+```bash
+DATA=/opt/xchem-fragalysis-2
+mkdir -pv $DATA/YOUR_NICKNAME
+ln -s $DATA/YOUR_NICKNAME $HOME/YOUR_NICKNAME
+```
+
+- [ ] Install conda
+
+```bash
+curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
+CONDA_PREFIX=$HOME/YOUR_NICKNAME/conda
+bash Miniforge3-$(uname)-$(uname -m).sh -p $CONDA_PREFIX -b
+source $CONDA_PREFIX/etc/profile.d/conda.sh
+```
+
+- [ ] Activate @mwinokan's environment:
+
+```bash
+conda activate $DATA/maxwin/conda/envs/py312
+```
+
+- [ ] Configure Jupyter (you will be prompted to set a password)
+
+```bash
+bash $DATA/maxwin/slurm/notebook.sh -p 9500 -d YOUR_NICKNAME -cd conda -jc $DATA/YOUR_NICKNAME/jupyter_slurm -ce py312 -ajc -js
+```
+
+- [ ] Submit a jupyter notebook job (will expire every 8 days)
+
+```bash
+sbatch --job-name notebook -p gpu --exclusive $DATA/maxwin/slurm/notebook.sh -p 9500 -d YOUR_NICKNAME -cd conda -jc $DATA/YOUR_NICKNAME/jupyter_slurm -ce py312 -ajc
+```
+
+- [ ] Check which IP address your job is running on, using the job ID from the submitted job:
+
+```bash
+rq -j JOB_ID --long
+```
+
+- [ ] log out of cepheus-slurm and log back in while forwarding the correct port, e.g. the below will assumes your job is running on `192.168.222.22` with port `9500` and will allow you to access the notebook at `localhost:8080` from a browser:
+
+```bash
+ssh -L 8080:192.168.222.22:9500 cepheus-slurm.diamond.ac.uk
+```
+
+- [ ] For Fragment Knitwork access to the `graph-sw2` VM is via bastion and needs to be requested from @mwinokan
 
 ### Checklist
 
 - [ ] you can ssh to IRIS (cepheus-slurm.diamond.ac.uk)
-- [ ] you can source a file to set up conda (e.g. create a bashrc_slurm.sh)
 - [ ] you can connect to a Jupyter notebook on IRIS
 - [ ] you can run `python -m bulkdock status` from the BulkDock directory
 - [ ] you can `import hippo` from a notebook
 - [ ] you can run `fragmenstein --help`
-- [ ] you can ssh to the sw-graph VM (optional, only for Knitwork)
+- [ ] you can ssh to the graph-sw2 VM (optional, only for Knitwork)
 - [ ] you can run `syndirella --help`
 
-## 2. Setup
+## 2. Setup the Target for FFF with HIPPO and BulkDock
 
 - [ ] Define merging opportunities by creating tags of LHS hits in Fragalysis
 - [ ] Download target from Fragalysis and place the .zip archive in the repo
 - [ ] Setup target in BulkDock 
 
-```
+```bash
 cp -v TARGET_NAME.zip $BULK/TARGETS
 cd $BULK
 python -m bulkdock extract TARGET_NAME
@@ -50,7 +88,7 @@ python -m bulkdock setup TARGET_NAME
 
 - [ ] Copy the `aligned_files` directory from `$BULK/TARGETS/TARGET_NAME/aligned_files` into this repository
 
-```
+```bash
 cd - 
 cp -rv $BULK/TARGETS/TARGET_NAME/aligned_files .
 ```
@@ -66,7 +104,9 @@ For each merging hypothesis (i.e. HYPOTHESIS_NICKNAME)
 - [ ] go to the fragmenstein subdirectory `cd fragmenstein`
 - [ ] queue fragmenstein job 
 
-```sb.sh --job-name "TARGET_NAME_HYPOTHESIS_NICKNAME_fragmenstein" --mem 16000 $HOME2/slurm/run_bash_with_conda.sh run_fragmenstein.sh HYPOTHESIS_NICKNAME```
+```bash
+sb.sh --job-name "TARGET_NAME_HYPOTHESIS_NICKNAME_fragmenstein" --mem 16000 $HOME2/slurm/run_bash_with_conda.sh run_fragmenstein.sh HYPOTHESIS_NICKNAME
+```
 
 This will create outputs in the chosen HYPOTHESIS_NICKNAME subdirectory:
 
@@ -77,7 +117,7 @@ This will create outputs in the chosen HYPOTHESIS_NICKNAME subdirectory:
 
 - [ ] placement with bulkdock
 
-```
+```bash
 cp -v HYPOTHESIS_NICKNAME_fstein_bulkdock_input.csv $BULK/INPUTS/TARGET_NAME_HYPOTHESIS_NICKNAME_fstein.csv
 cd $BULK
 python -m bulkdock place TARGET_NAME INPUTS/TARGET_NAME_HYPOTHESIS_NICKNAME_fstein.csv
@@ -85,25 +125,25 @@ python -m bulkdock place TARGET_NAME INPUTS/TARGET_NAME_HYPOTHESIS_NICKNAME_fste
 
 - [ ] monitor placements (until complete)
 
-```
+```bash
 python -m bulkdock status
 ```
 
 To loop indefinitely:
 
-```
+```bash
 watch python -m bulkdock status
 ```
 
 - [ ] export Fragalysis SDF
 
-```
+```bash
 sb.sh --job-name "TARGET_NAME_HYPOTHESIS_NICKNAME_fstein_out" $HOME2/slurm/run_python.sh -m bulkdock to-fragalysis TARGET_NAME OUTPUTS/SDF_FILE HYPOTHESIS_NICKNAME_fstein
 ```
 
 - [ ] Copy back to this repository
 
-```
+```bash
 cd - OUTPUTS/SDF_FILE
 cp -v $BULK/OUTPUTS/TARGET_NAME_HYPOTHESIS_NICKNAME*fstein*fragalysis.sdf .
 ```
@@ -126,13 +166,17 @@ Then, for each merging hypothesis:
 - [ ] back on `cepheus-slurm` pull the latest changes
 - [ ] Run BulkDock placement as for Fragmenstein above
 
-```
+```bash
 cp -v HYPOTHESIS_NICKNAME_knitwork_pure.csv $BULK/INPUTS/TARGET_NAME_HYPOTHESIS_NICKNAME_knitwork_pure.csv
 cp -v HYPOTHESIS_NICKNAME_knitwork_impure.csv $BULK/INPUTS/TARGET_NAME_HYPOTHESIS_NICKNAME_knitwork_impure.csv
 cd $BULK
 python -m bulkdock place TARGET_NAME INPUTS/TARGET_NAME_HYPOTHESIS_NICKNAME_knitwork_pure.csv
 python -m bulkdock place TARGET_NAME INPUTS/TARGET_NAME_HYPOTHESIS_NICKNAME_knitwork_impure.csv
 ```
+
+### Summary tables / figures
+
+**CREATE NOTEBOOK**
 
 - [ ] Export Fragalysis SDF as for Fragmenstein
 
@@ -144,6 +188,8 @@ python -m bulkdock place TARGET_NAME INPUTS/TARGET_NAME_HYPOTHESIS_NICKNAME_knit
 ### Fragalysis curation
 
 ## 5. Syndirella elaboration
+
+**INCREASE MEMORY ALLOCATION**
 
 ## 6. HIPPO
 
