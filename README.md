@@ -105,7 +105,7 @@ For each merging hypothesis (i.e. HYPOTHESIS_NICKNAME)
 - [ ] queue fragmenstein job 
 
 ```bash
-sb.sh --job-name "TARGET_NAME_HYPOTHESIS_NICKNAME_fragmenstein" --mem 16000 $HOME2/slurm/run_bash_with_conda.sh run_fragmenstein.sh HYPOTHESIS_NICKNAME
+sbatch --job-name "TARGET_NAME_HYPOTHESIS_NICKNAME_fragmenstein" --mem 16000 $HOME2/slurm/run_bash_with_conda.sh run_fragmenstein.sh HYPOTHESIS_NICKNAME
 ```
 
 This will create outputs in the chosen HYPOTHESIS_NICKNAME subdirectory:
@@ -138,7 +138,7 @@ watch python -m bulkdock status
 - [ ] export Fragalysis SDF
 
 ```bash
-sb.sh --job-name "TARGET_NAME_HYPOTHESIS_NICKNAME_fstein_out" $HOME2/slurm/run_python.sh -m bulkdock to-fragalysis TARGET_NAME OUTPUTS/SDF_FILE HYPOTHESIS_NICKNAME_fstein
+sbatch --job-name "TARGET_NAME_HYPOTHESIS_NICKNAME_fstein_out" $HOME2/slurm/run_python.sh -m bulkdock to-fragalysis TARGET_NAME OUTPUTS/SDF_FILE HYPOTHESIS_NICKNAME_fstein
 ```
 
 - [ ] Copy back to this repository
