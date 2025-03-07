@@ -138,13 +138,13 @@ watch python -m bulkdock status
 - [ ] export Fragalysis SDF
 
 ```bash
-sbatch --job-name "TARGET_NAME_HYPOTHESIS_NICKNAME_fstein_out" $HOME2/slurm/run_python.sh -m bulkdock to-fragalysis TARGET_NAME OUTPUTS/SDF_FILE HYPOTHESIS_NICKNAME_fstein
+python -m bulkdock to-fragalysis TARGET_NAME OUTPUTS/SDF_FILE HYPOTHESIS_NICKNAME_fstein
 ```
 
 - [ ] Copy back to this repository
 
 ```bash
-cd - OUTPUTS/SDF_FILE
+cd -
 cp -v $BULK/OUTPUTS/TARGET_NAME_HYPOTHESIS_NICKNAME*fstein*fragalysis.sdf .
 ```
 
@@ -178,14 +178,43 @@ python -m bulkdock place TARGET_NAME INPUTS/TARGET_NAME_HYPOTHESIS_NICKNAME_knit
 
 **CREATE NOTEBOOK**
 
-- [ ] Export Fragalysis SDF as for Fragmenstein
+- [ ] Export Fragalysis SDF
+
+```bash
+cd $BULK
+python -m bulkdock to-fragalysis TARGET_NAME OUTPUTS/SDF_FILE HYPOTHESIS_NICKNAME_knit_pure
+python -m bulkdock to-fragalysis TARGET_NAME OUTPUTS/SDF_FILE HYPOTHESIS_NICKNAME_knit_impure
+```
+
+- [ ] Copy back to this repository
+
+```bash
+cd -
+cp -v $BULK/OUTPUTS/TARGET_NAME_HYPOTHESIS_NICKNAME*knitwork*fragalysis.sdf .
+```
 
 ## 4. Scaffold selection
 
-### Syndirella retrosynthesis
-### Review chemistry
-### HIPPO filtering
-### Fragalysis curation
+Once merges have been generated for a given merging hypothesis, they should be sanity checked in some or all of the following ways:
+
+- [ ] [Fragalysis curation](https://fragalysis.readthedocs.io/en/latest/rhs.html#how-to-curate-select-compounds-in-fragalysis) -> curation CSVs
+- [ ] Chemistry review -> syndirella manual input CSV
+- [ ] Syndirella retrosynthesis check (documentation pending)
+
+- [ ] Modify and run the notebook `hippo/2_scaffold_selection.ipynb`. This will generate the syndirella inputs
+
+- [ ] Queue the syndirella jobs (for each merging hypothesis/iteration)
+
+```bash
+cd syndirella
+./submit_elabs.sh HYPOTHESIS_NICKNAME
+```
+
+- [ ] Check the elabs with the notebook `hippo/3_check_elabs.ipynb`.
+
+- [ ] Queue the job to load all the elabs into the HIPPO database
+
+- [ ] Inspect the outputs
 
 ## 5. Syndirella elaboration
 
@@ -206,3 +235,18 @@ python -m bulkdock place TARGET_NAME INPUTS/TARGET_NAME_HYPOTHESIS_NICKNAME_knit
 
 ### Review chemistry
 ### Order reactants
+
+## Getting the latest version of the scripts
+
+If the scripts in your forked copy are out of date you can fetch them by synchronising them with the template repository. First add the template remote and fetch it:
+
+```bash
+git remote add template https://github.com/xchem/FFF_Template.git
+git fetch template
+```
+
+Then merge the changes. **You will likely need to resolve some conflicts, so only do this if you are familiar with git!**
+
+```bash
+git merge template/main
+```
