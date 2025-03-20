@@ -248,5 +248,7 @@ git fetch template
 Then merge the changes. **You will likely need to resolve some conflicts, so only do this if you are familiar with git!**
 
 ```bash
-git merge template/main
+git merge --allow-unrelated-histories template/main
 ```
+
+Resolve conflicts and complete the merge.
